@@ -55,6 +55,8 @@ public class QuizCardPlayer {
 	}
 
 	
+//	se essa for uma pergunta, mostre a resposta, caso contrário exiba a próxima pergunta
+//	configura um flag que indicará se estamos visualizando uma pergunta ou resposta
 	public class NextCardListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			if (isShowAnswer) {
@@ -75,6 +77,8 @@ public class QuizCardPlayer {
 		}
 	}
 
+//	abre a caixa de diálogo de um arquivo
+//	permite que o usuário navegue e selecione um conjunto de cartões a ser aberto
 	public class OpenMenuListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
 			JFileChooser fileOpen = new JFileChooser();
@@ -83,6 +87,10 @@ public class QuizCardPlayer {
 		}
 	}
 	
+//	deve construir um ArrayList de cartões, lendo-os em um arquivo de texto
+//	chamado pelo manupilador de eventos de OpenMenuListener, lê o arquivo uma linha de cada vez
+//	e solicita ao método makeCard() que crie um novo cartão a partir da linha
+//	(uma linha do campo conterá tanto a pergunta quanto a resposta, serparadas por um símbolo "/"
 	private void loadFile(File file) {
 		cardList = new ArrayList<QuizCard>();
 		try {
@@ -94,14 +102,12 @@ public class QuizCardPlayer {
 			reader.close();
 		} catch (Exception e) {
 			System.out.println("Couldn't read the cardList out");
-			e.printStackTrace();
-
-			
+			e.printStackTrace();			
 		}
 		showNextCard();
 	}
 
-
+//	
 	private void makeCard(String lineToParse) {
 		String[] result = lineToParse.split("/");
 		QuizCard card = new QuizCard(result[0], result[1]);
